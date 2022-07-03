@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuizGameModelStoreContainer" CdmEntityContainer="QuizEntities">
+    <EntitySetMapping Name="Options">
+      <EntityTypeMapping TypeName="QuizGameModel.Option">
+        <MappingFragment StoreEntitySet="Options">
+          <ScalarProperty Name="optionID" ColumnName="optionID" />
+          <ScalarProperty Name="optionContent" ColumnName="optionContent" />
+          <ScalarProperty Name="isCorrect" ColumnName="isCorrect" />
+          <ScalarProperty Name="questionID" ColumnName="questionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="QuizGameModel.Question">
+        <MappingFragment StoreEntitySet="Question">
+          <ScalarProperty Name="questionID" ColumnName="questionID" />
+          <ScalarProperty Name="questCont" ColumnName="questCont" />
+          <ScalarProperty Name="quizID" ColumnName="quizID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="points" ColumnName="points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quizs">
+      <EntityTypeMapping TypeName="QuizGameModel.Quiz">
+        <MappingFragment StoreEntitySet="Quiz">
+          <ScalarProperty Name="quizID" ColumnName="quizID" />
+          <ScalarProperty Name="quizName" ColumnName="quizName" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Scores">
+      <EntityTypeMapping TypeName="QuizGameModel.Score">
+        <MappingFragment StoreEntitySet="Score">
+          <ScalarProperty Name="scoreID" ColumnName="scoreID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="quizID" ColumnName="quizID" />
+          <ScalarProperty Name="score1" ColumnName="score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubmitedAnswers">
+      <EntityTypeMapping TypeName="QuizGameModel.SubmitedAnswer">
+        <MappingFragment StoreEntitySet="SubmitedAnswers">
+          <ScalarProperty Name="submitedAnsID" ColumnName="submitedAnsID" />
+          <ScalarProperty Name="optionID" ColumnName="optionID" />
+          <ScalarProperty Name="questionID" ColumnName="questionID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="QuizGameModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="QuizGameModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="birthday" ColumnName="birthday" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

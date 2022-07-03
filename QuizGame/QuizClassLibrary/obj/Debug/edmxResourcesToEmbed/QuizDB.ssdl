@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuizGameModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Options">
+    <Key>
+      <PropertyRef Name="optionID" />
+    </Key>
+    <Property Name="optionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="optionContent" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="isCorrect" Type="bit" Nullable="false" />
+    <Property Name="questionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="questionID" />
+    </Key>
+    <Property Name="questionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="questCont" Type="nchar" MaxLength="200" Nullable="false" />
+    <Property Name="quizID" Type="int" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="points" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Quiz">
+    <Key>
+      <PropertyRef Name="quizID" />
+    </Key>
+    <Property Name="quizID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="quizName" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Score">
+    <Key>
+      <PropertyRef Name="scoreID" />
+    </Key>
+    <Property Name="scoreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="quizID" Type="int" Nullable="false" />
+    <Property Name="score" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubmitedAnswers">
+    <Key>
+      <PropertyRef Name="submitedAnsID" />
+    </Key>
+    <Property Name="submitedAnsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="optionID" Type="int" Nullable="false" />
+    <Property Name="questionID" Type="int" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="lastName" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="email" Type="nchar" MaxLength="200" Nullable="false" />
+    <Property Name="gender" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="birthday" Type="date" Nullable="false" />
+    <Property Name="password" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="isAdmin" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Options_Question">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="Options" Type="Self.Options" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="questionID" />
+      </Principal>
+      <Dependent Role="Options">
+        <PropertyRef Name="questionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_Quiz">
+    <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quiz">
+        <PropertyRef Name="quizID" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="quizID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quiz_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Quiz">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Score_User">
+    <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
+    <End Role="Score" Type="Self.Score" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quiz">
+        <PropertyRef Name="quizID" />
+      </Principal>
+      <Dependent Role="Score">
+        <PropertyRef Name="quizID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Score_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Score" Type="Self.Score" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Score">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubmitedAnswers_Options">
+    <End Role="Options" Type="Self.Options" Multiplicity="1" />
+    <End Role="SubmitedAnswers" Type="Self.SubmitedAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Options">
+        <PropertyRef Name="optionID" />
+      </Principal>
+      <Dependent Role="SubmitedAnswers">
+        <PropertyRef Name="optionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubmitedAnswers_Question">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="SubmitedAnswers" Type="Self.SubmitedAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="questionID" />
+      </Principal>
+      <Dependent Role="SubmitedAnswers">
+        <PropertyRef Name="questionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubmitedAnswers_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="SubmitedAnswers" Type="Self.SubmitedAnswers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="SubmitedAnswers">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuizGameModelStoreContainer">
+    <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Score" EntityType="Self.Score" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubmitedAnswers" EntityType="Self.SubmitedAnswers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Options_Question" Association="Self.FK_Options_Question">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="Options" EntitySet="Options" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_Quiz" Association="Self.FK_Question_Quiz">
+      <End Role="Quiz" EntitySet="Quiz" />
+      <End Role="Question" EntitySet="Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_User" Association="Self.FK_Question_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Question" EntitySet="Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quiz_User" Association="Self.FK_Quiz_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Quiz" EntitySet="Quiz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Score_User" Association="Self.FK_Score_User">
+      <End Role="Quiz" EntitySet="Quiz" />
+      <End Role="Score" EntitySet="Score" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Score_User1" Association="Self.FK_Score_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Score" EntitySet="Score" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubmitedAnswers_Options" Association="Self.FK_SubmitedAnswers_Options">
+      <End Role="Options" EntitySet="Options" />
+      <End Role="SubmitedAnswers" EntitySet="SubmitedAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubmitedAnswers_Question" Association="Self.FK_SubmitedAnswers_Question">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="SubmitedAnswers" EntitySet="SubmitedAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubmitedAnswers_User" Association="Self.FK_SubmitedAnswers_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="SubmitedAnswers" EntitySet="SubmitedAnswers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
